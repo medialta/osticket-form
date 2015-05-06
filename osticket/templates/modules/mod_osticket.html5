@@ -1,0 +1,31 @@
+<style>
+    .error {
+        color: #d9534f;
+    }
+</style>
+<?php if($this->afficheForm): ?>
+    <form method="post">
+        <input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}">
+
+        
+        <input type="text" placeholder="<?php echo $this->placeholder['name'] ?>" name="name" value="<?php echo ($this->nom) ? $this->nom : "" ?>" required>
+        <input type="email" name="email" placeholder="<?php echo $this->placeholder['mail'] ?>" value="<?php echo ($this->email) ? $this->email : "" ?>" required>
+        <input type="text" name="phone" placeholder="<?php echo $this->placeholder['phone'] ?>" value="<?php echo ($this->phone) ? $this->phone : "" ?>" required>
+        <input type="text" name="subject" placeholder="<?php echo $this->placeholder['subject'] ?>" value="<?php echo ($this->subject) ? $this->subject : "" ?>" required>
+        <textarea name="message" id="" cols="30" rows="10" placeholder="<?php echo $this->placeholder['message'] ?>" required><?php echo ($this->message) ? $this->message : "" ?></textarea>
+        <?php if ($this->useCaptcha): ?>
+            <div class="g-recaptcha" data-sitekey="<?php echo $this->publicKey; ?>" ></div>
+            <div class="error error_captcha">
+                <?php echo (($this->errorCaptcha) ? $this->errorCaptcha : ""); ?>
+            </div>
+        <?php endif; ?>
+        <input type="submit" class="submit" value="<?php echo $this->placeholder['submit'] ?>" style="margin-top:10px;"/>
+    </form>
+
+<?php else : ?>
+    <p><?php echo $this->placeholder['success'] ?></p>
+<?php endif; ?>
+
+<?php if ($this->useCaptcha): ?>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+<?php endif; ?>
